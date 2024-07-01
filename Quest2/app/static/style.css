@@ -45,3 +45,25 @@ body {
     margin: auto;
     padding: 20px 20px;
 }
+
+.projects {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #222222;
+    padding: 20px;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.light {
+    opacity: 0.5;
+}
