@@ -5,10 +5,33 @@ username = "Tomdu3"
 description = "I love developing web applications."
 description += "And this text was created with Jinja"
 
+projects = [
+    {
+        'id': 1,
+        'title': 'E-commerce Website',
+        'description': 'A website where you can buy stuff',
+        'author': 'tomdu3',
+        'category': 'Web Development'
+    },
+    {
+        'id': 2,
+        'title': 'Flask Website',
+        'description': 'A website made with Flask',
+        'author': 'tomdu3',
+        'category': 'Web Development'
+    },
+    {
+        'id': 3,
+        'title': 'Cool Mobile App',
+        'description': 'An app that does cool stuff',
+        'author': 'tomdu3',
+        'category': 'Mobile Development'
+    }
+]
 
 @app.route('/')
 def hello_world():
-    return render_template('index.html', username = username, description = description)
+    return render_template('index.html', username = username, description = description, projects = projects)
 
 @app.route('/about')
 def about():
