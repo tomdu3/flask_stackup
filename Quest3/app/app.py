@@ -123,3 +123,22 @@ def update(id):
     else:
         return redirect(url_for('product', id = id, error = "Unable to update product"))
 
+
+@app.route('/product/add', methods = ['GET', 'POST'])
+@login_required
+def add():
+    if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        price = request.form['price']
+        category = request.form['category']
+        image = request.files['image']
+        image_filename = secure_filename(image.filename)
+        image.save('static/' + image_filename)
+        if add_product(title, description, price, category, image_filename):
+            return redirect(url_for('index'))
+        else:
+            return redirect(url_for('index', error = "Unable to add product"))
+    else:
+        return render_template('add.html', shopname = shopname, user = current_user)
+    
