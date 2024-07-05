@@ -21,3 +21,80 @@ login_manager.init_app(app)
 def load_user(user_id):
     # since the user_id is just the primary key of our user table, use it in the query for the user
     return User.query.get(int(user_id))
+
+
+# only for testing
+shopname = "Stackie1234"
+
+products = [
+    {
+        'id': 1,
+        'title': 'Big Apple',
+        'description': 'A big apple',
+        'price': 5,
+        'category': 'Fruit',
+        'image': 'bigapple.jpg'
+    },
+    {
+        'id': 2,
+        'title': 'Cool Flask',
+        'description': 'A flask that is cool',
+        'price': 10,
+        'category': 'Water Bottles',
+        'image': 'coolflask.jpg'
+    },
+    {
+        'id': 3,
+        'title': 'Cat Mouse',
+        'description': 'A cat shaped mouse',
+        'price': 15,
+        'category': 'Electronics',
+        'image': 'catmouse.jpg'
+    }
+]
+
+users = [
+    {
+        'id': 1,
+        'username': 'admin',
+        'password': '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
+        'email': 'admin@stackshop.com',
+        'role': 'admin'
+    }
+]
+
+
+with app.app_context():
+    db.create_all()
+    try:
+        for product in products:
+            new_product = Product(
+                id = product['id'],
+                title = product['title'],
+                description = product['description'],
+                price = product['price'],
+                category = product['category'],
+                image = product['image']
+            )
+            db.session.add(new_product)
+        db.session.commit()
+
+    except exc.IntegrityError:
+        db.session.rollback()
+        print('Products already exist in database')
+
+    try:
+        for user in users:
+            new_user = User(
+                id = user['id'],
+                username = user['username'],
+                password = user['password'],
+                email = user['email'],
+                role = user['role']
+            )
+            db.session.add(new_user)
+        db.session.commit()
+
+    except exc.IntegrityError:
+        db.session.rollback()
+        print('Users already exist in database')
