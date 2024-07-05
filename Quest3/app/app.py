@@ -24,7 +24,7 @@ def load_user(user_id):
 
 
 # only for testing
-shopname = "Stackie1234"
+shopname = "Tomdu3"
 
 products = [
     {
