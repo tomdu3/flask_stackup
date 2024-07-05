@@ -150,3 +150,21 @@ def delete(id):
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index', error = "Unable to delete product"))
+
+
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = get_user_by_username(username)
+
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        if user and user.password == hashed_password:
+            login_user(user, remember=True)
+            return redirect(url_for('index'))
+        else:
+            return redirect(url_for('login', error = "Invalid username or password"))
+    else:
+        return render_template('login.html', shopname = shopname, user = current_user, error = request.args.get('error'))
