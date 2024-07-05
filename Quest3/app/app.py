@@ -98,3 +98,9 @@ with app.app_context():
     except exc.IntegrityError:
         db.session.rollback()
         print('Users already exist in database')
+
+
+@app.route('/')
+def index():
+    return render_template('index.html', shopname = shopname, products = get_products(),user = current_user)
+
