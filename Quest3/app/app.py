@@ -8,3 +8,7 @@ from flask_login import LoginManager, login_user, current_user, logout_user, log
 from werkzeug.utils import secure_filename
 import secrets
 
+app = Flask(__name__, template_folder = 'templates', static_folder = 'static')
+app.config['SECRET_KEY'] = secrets.token_hex(16)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db.init_app(app)
