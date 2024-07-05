@@ -104,3 +104,7 @@ with app.app_context():
 def index():
     return render_template('index.html', shopname = shopname, products = get_products(),user = current_user)
 
+
+@app.route('/product/<int:id>')
+def product(id):
+    return render_template('product.html', shopname = shopname, product = get_product(id),user = current_user)
