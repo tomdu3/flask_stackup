@@ -185,3 +185,9 @@ def register():
             return redirect(url_for('register', error = "Unable to register user"))
     else:
         return render_template('register.html', shopname = shopname, user = current_user, error = request.args.get('error'))
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
