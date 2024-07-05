@@ -142,3 +142,11 @@ def add():
     else:
         return render_template('add.html', shopname = shopname, user = current_user)
     
+
+@app.route('/product/delete/<int:id>', methods = ['GET'])
+@login_required
+def delete(id):
+    if delete_product(id):
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('index', error = "Unable to delete product"))
