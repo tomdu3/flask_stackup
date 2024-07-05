@@ -168,3 +168,20 @@ def login():
             return redirect(url_for('login', error = "Invalid username or password"))
     else:
         return render_template('login.html', shopname = shopname, user = current_user, error = request.args.get('error'))
+
+
+@app.route('/register', methods = ['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+   
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+       
+        if add_user(username, hashed_password, email, 'user'):
+            return redirect(url_for('login'))
+        else:
+            return redirect(url_for('register', error = "Unable to register user"))
+    else:
+        return render_template('register.html', shopname = shopname, user = current_user, error = request.args.get('error'))
